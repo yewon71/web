@@ -1344,58 +1344,45 @@ cursor: pointer;}
 
 
     }
-/* 1. 최상위 컨테이너 여백 제거 (로고가 벽에 붙도록) */
-.app-container, .header {
-    width: 100% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-/* 2. 헤더 내용 정렬 */
+/* 1. 헤더 내부 요소를 가로로 정렬 */
 .header-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 10px 5px !important; /* 양끝 여백 최소화 */
+    justify-content: space-between; /* 로고는 왼쪽, 메뉴는 오른쪽 */
+    align-items: center;           /* 세로 중앙 정렬 */
+    flex-wrap: nowrap;             /* 줄바꿈 방지 */
+    overflow-x: hidden;            /* 삐져나가는 부분 숨김 */
 }
 
-/* 3. 로고 위치 및 크기 */
-.logo {
-    display: flex;
-    align-items: center;
-    margin-left: 5px !important; /* 왼쪽 벽에서 아주 살짝만 띄움 */
-    font-weight: bold;
-    flex-shrink: 0; /* 로고가 눌리지 않게 함 */
-    font-size: 1.1rem;
-}
-
-/* 4. 네비게이션 버튼 영역 */
+/* 2. 네비게이션 메뉴 설정 */
 .nav {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 1px; /* 버튼 사이 간격을 거의 없앰 */
-    flex-grow: 1;
-    justify-content: flex-end; /* 오른쪽으로 최대한 밀기 */
+    gap: 10px;                     /* 버튼 사이 간격 */
+    white-space: nowrap;           /* 글자가 두 줄로 되는 것 방지 */
 }
 
-/* 5. 버튼 세부 설정 */
-.nav-button {
-    padding: 4px 2px !important; /* 좌우 여백 거의 제거 */
-    font-size: 11px !important; /* 글자가 깨지지 않는 최소 크기 */
-    white-space: nowrap !important;
-    letter-spacing: -1px !important; /* 자간을 더 좁힘 */
-    border: none !important;
-    background: transparent !important;
-}
-
-/* 화면이 아주 작은 폰 대응 (아이폰 SE 등) */
-@media (max-width: 380px) {
-    .logo {
-        font-size: 0.9rem !important;
+/* 3. 모바일용 특별 설정 (화면이 768px보다 작을 때) */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;    /* 모바일에서는 로고와 메뉴를 위아래로 배치 (선택사항) */
+        gap: 10px;
     }
+
+    .nav {
+        display: flex;
+        overflow-x: auto;          /* 💡 핵심: 메뉴가 많으면 옆으로 밀어서 볼 수 있게 함 (스크롤) */
+        width: 100%;               /* 가로 꽉 차게 */
+        padding-bottom: 5px;
+        -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
+    }
+
     .nav-button {
-        font-size: 10px !important;
+        padding: 5px 10px;         /* 버튼 크기 살짝 줄임 */
+        font-size: 14px;           /* 글자 크기 살짝 줄임 */
+        flex-shrink: 0;            /* 버튼 크기가 찌그러지지 않게 함 */
+    }
+    
+    /* 스크롤바 숨기기 (깔끔하게 보이기 위해) */
+    .nav::-webkit-scrollbar {
+        display: none;
     }
 }
