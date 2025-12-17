@@ -1344,45 +1344,42 @@ cursor: pointer;}
 
 
     }
-/* 1. 헤더 내부 요소를 가로로 정렬 */
+/* --- 1. 본문 텍스트 설정: 단어 단위로 줄바꿈 --- */
+body, p, span, div {
+    /* 단어 중간이 잘리지 않고 띄어쓰기 기준으로 줄바꿈 되게 함 */
+    word-break: keep-all; 
+    overflow-wrap: break-word;
+}
+
+/* --- 2. 헤더 및 메뉴: 모바일 한 줄 정렬 --- */
 .header-content {
     display: flex;
-    justify-content: space-between; /* 로고는 왼쪽, 메뉴는 오른쪽 */
-    align-items: center;           /* 세로 중앙 정렬 */
-    flex-wrap: nowrap;             /* 줄바꿈 방지 */
-    overflow-x: hidden;            /* 삐져나가는 부분 숨김 */
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* 절대 줄바꿈 금지 */
+    gap: 5px;
 }
 
-/* 2. 네비게이션 메뉴 설정 */
 .nav {
     display: flex;
-    gap: 10px;                     /* 버튼 사이 간격 */
-    white-space: nowrap;           /* 글자가 두 줄로 되는 것 방지 */
+    flex-wrap: nowrap; /* 버튼들이 아래로 떨어지지 않게 함 */
+    align-items: center;
+    gap: 4px; /* 버튼 사이 간격을 아주 좁게 설정 */
 }
 
-/* 3. 모바일용 특별 설정 (화면이 768px보다 작을 때) */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;    /* 모바일에서는 로고와 메뉴를 위아래로 배치 (선택사항) */
-        gap: 10px;
-    }
-
-    .nav {
-        display: flex;
-        overflow-x: auto;          /* 💡 핵심: 메뉴가 많으면 옆으로 밀어서 볼 수 있게 함 (스크롤) */
-        width: 100%;               /* 가로 꽉 차게 */
-        padding-bottom: 5px;
-        -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
+/* --- 3. 모바일 전용 (화면이 좁을 때 글자 크기 축소) --- */
+@media (max-width: 600px) {
+    .logo {
+        font-size: 1rem !important; /* 로고 크기 줄임 */
+        white-space: nowrap;
     }
 
     .nav-button {
-        padding: 5px 10px;         /* 버튼 크기 살짝 줄임 */
-        font-size: 14px;           /* 글자 크기 살짝 줄임 */
-        flex-shrink: 0;            /* 버튼 크기가 찌그러지지 않게 함 */
-    }
-    
-    /* 스크롤바 숨기기 (깔끔하게 보이기 위해) */
-    .nav::-webkit-scrollbar {
-        display: none;
+        /* 한 줄에 7개를 다 넣기 위해 크기 최소화 */
+        padding: 4px 6px !important; 
+        font-size: 10px !important; /* 글자 크기를 아주 작게 조절 */
+        letter-spacing: -0.5px;    /* 글자 간격을 좁혀서 공간 확보 */
+        flex-shrink: 1;            /* 공간이 부족하면 버튼이 스스로 줄어듦 */
+        white-space: nowrap;       /* 버튼 안의 글자가 두 줄이 되지 않게 함 */
     }
 }
