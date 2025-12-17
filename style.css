@@ -1344,53 +1344,58 @@ cursor: pointer;}
 
 
     }
-/* --- 본문 텍스트: 단어 단위 줄바꿈 유지 --- */
-body, p, span, div {
-    word-break: keep-all; 
-    overflow-wrap: break-word;
+/* 1. 최상위 컨테이너 여백 제거 (로고가 벽에 붙도록) */
+.app-container, .header {
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
-/* --- 헤더 레이아웃 수정 --- */
+/* 2. 헤더 내용 정렬 */
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: nowrap;
-    padding: 10px 5px !important; /* 양옆 여백을 최소화해서 로고를 왼쪽으로 밀기 */
-    gap: 2px;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px 5px !important; /* 양끝 여백 최소화 */
 }
 
-/* 로고 왼쪽 끝으로 이동 */
+/* 3. 로고 위치 및 크기 */
 .logo {
-    margin-left: -5px; /* 로고를 왼쪽으로 더 이동 */
-    white-space: nowrap;
-    flex-shrink: 0; /* 로고 크기 고정 */
+    display: flex;
+    align-items: center;
+    margin-left: 5px !important; /* 왼쪽 벽에서 아주 살짝만 띄움 */
+    font-weight: bold;
+    flex-shrink: 0; /* 로고가 눌리지 않게 함 */
+    font-size: 1.1rem;
 }
 
-/* 메뉴 영역: 최대한 넓게 사용 */
+/* 4. 네비게이션 버튼 영역 */
 .nav {
     display: flex;
     flex-wrap: nowrap;
-    align-items: center;
-    justify-content: flex-end; /* 메뉴를 오른쪽으로 정렬 */
-    gap: 2px; /* 버튼 사이 간격 최소화 */
+    gap: 1px; /* 버튼 사이 간격을 거의 없앰 */
     flex-grow: 1;
+    justify-content: flex-end; /* 오른쪽으로 최대한 밀기 */
 }
 
-/* --- 모바일 전용 디자인 (글자 크기 키우기) --- */
-@media (max-width: 600px) {
-    .logo {
-        font-size: 1.1rem !important; /* 로고는 적당한 크기 유지 */
-    }
+/* 5. 버튼 세부 설정 */
+.nav-button {
+    padding: 4px 2px !important; /* 좌우 여백 거의 제거 */
+    font-size: 11px !important; /* 글자가 깨지지 않는 최소 크기 */
+    white-space: nowrap !important;
+    letter-spacing: -1px !important; /* 자간을 더 좁힘 */
+    border: none !important;
+    background: transparent !important;
+}
 
+/* 화면이 아주 작은 폰 대응 (아이폰 SE 등) */
+@media (max-width: 380px) {
+    .logo {
+        font-size: 0.9rem !important;
+    }
     .nav-button {
-        /* 한 줄에 다 보이기 위해 여백을 완전히 줄임 */
-        padding: 4px 3px !important; 
-        font-size: 12px !important; /* 글자 크기 다시 키움 (기존 10px -> 12px) */
-        white-space: nowrap !important; /* 괄호나 글자가 아래로 떨어지는 것 절대 방지 */
-        letter-spacing: -0.8px; /* 글자 간격을 좁혀서 한 줄에 들어가게 함 */
-        background: none; /* 배경색이 있다면 제거해서 공간 확보 (필요시 수정) */
-        border: none;
-        flex-shrink: 0; /* 버튼이 찌그러지지 않게 함 */
+        font-size: 10px !important;
     }
 }
